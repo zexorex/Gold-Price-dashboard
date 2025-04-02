@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,11 +13,17 @@
     <script>
         async function fetchGoldPrice() {
             try {
+                console.log('Fetching gold price...');
                 let response = await fetch('https://api.metals.live/v1/spot');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
                 let data = await response.json();
+                console.log('Gold price data:', data);
                 document.getElementById('goldPrice').innerText = 'Gold Price: $' + data[0].gold + ' per ounce';
             } catch (error) {
                 console.error('Error fetching gold price:', error);
+                document.getElementById('goldPrice').innerText = 'Error loading gold price';
             }
         }
         setInterval(fetchGoldPrice, 60000); // Refresh every minute
@@ -27,17 +34,15 @@
     <div class="container">
         <h2>Live Gold Prices (Dubai & Bangladesh)</h2>
         <p id="goldPrice">Loading...</p>
-        <iframe src="https://www.goldrate24.com/gold-prices/middle-east/uae/" ></iframe>
-        <iframe src="https://bajus.org.bd" ></iframe><h2>Gold Technical Analysis (XAU/USD)</h2>
-    <iframe src="https://www.tradingview.com/chart/?symbol=XAUUSD" ></iframe>
-    
-    <h2>USD Index (DXY) & BDT-USD Exchange Rate</h2>
-    <iframe src="https://www.tradingview.com/chart/?symbol=TVC:DXY" ></iframe>
-    <iframe src="https://www.xe.com/currencyconverter/convert/?Amount=1&From=USD&To=BDT" ></iframe>
-    
-    <h2>Latest Gold Market News</h2>
-    <iframe src="https://www.investing.com/commodities/gold-news" ></iframe>
-</div>
-
+        <iframe src="https://www.goldrate24.com/gold-prices/middle-east/uae/"></iframe>
+        <iframe src="https://bajus.org.bd"></iframe>
+        <h2>Gold Technical Analysis (XAU/USD)</h2>
+        <iframe src="https://www.tradingview.com/chart/?symbol=XAUUSD"></iframe>
+        <h2>USD Index (DXY) & BDT-USD Exchange Rate</h2>
+        <iframe src="https://www.tradingview.com/chart/?symbol=TVC:DXY"></iframe>
+        <iframe src="https://www.xe.com/currencyconverter/convert/?Amount=1&From=USD&To=BDT"></iframe>
+        <h2>Latest Gold Market News</h2>
+        <iframe src="https://www.investing.com/commodities/gold-news"></iframe>
+    </div>
 </body>
 </html>
